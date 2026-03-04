@@ -18,6 +18,14 @@ import { EmptyStateComponent } from './components/states/empty-state/empty-state
 import { TransactionDetailsComponent } from './components/transactions/transaction-details/transaction-details.component';
 import { TransactionFormComponent } from './components/transactions/transaction-form/transaction-form.component';
 import { TransactionItemComponent } from './components/transactions/transaction-item/transaction-item.component';
+import { CurrencyFormatPipe } from './pipes/currency-format-pipe';
+import { DateFormatPipe } from './pipes/date-format-pipe';
+import { FilterByTypePipe } from './pipes/filter-by-type-pipe';
+import { FilterByCategoryPipe } from './pipes/filter-by-category-pipe';
+import { SearchByTextPipe } from './pipes/search-by-text-pipe';
+import { MonthNamePipe } from './pipes/month-name-pipe';
+import { CategoryIconPipe } from './pipes/category-icon-pipe';
+import { CategoryColorPipe } from './pipes/category-color-pipe';
 
 
 
@@ -38,7 +46,15 @@ import { TransactionItemComponent } from './components/transactions/transaction-
     EmptyStateComponent,
     TransactionDetailsComponent,
     TransactionFormComponent,
-    TransactionItemComponent
+    TransactionItemComponent,
+    CurrencyFormatPipe,
+    DateFormatPipe,
+    FilterByTypePipe,
+    FilterByCategoryPipe,
+    SearchByTextPipe,
+    MonthNamePipe,
+    CategoryIconPipe,
+    CategoryColorPipe,
   ],
   imports: [
     CommonModule,
@@ -62,7 +78,15 @@ import { TransactionItemComponent } from './components/transactions/transaction-
     EmptyStateComponent,
     TransactionDetailsComponent,
     TransactionFormComponent,
-    TransactionItemComponent
+    TransactionItemComponent,
+    CurrencyFormatPipe,
+    DateFormatPipe,
+    FilterByTypePipe,
+    FilterByCategoryPipe,
+    SearchByTextPipe,
+    MonthNamePipe,
+    CategoryIconPipe,
+    CategoryColorPipe
   ]
 })
 export class SharedModule { }
