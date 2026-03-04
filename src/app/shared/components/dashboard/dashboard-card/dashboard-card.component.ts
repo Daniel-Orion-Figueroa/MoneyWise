@@ -14,13 +14,13 @@ export class DashboardCardComponent  implements OnInit {
 
   @Input() titulo!: string;
   @Input() monto!: number;
-  @Input() tipo!: 'ingreso' | 'gasto' | 'saldo';
+  @Input() tipo!: 'income' | 'expense' | 'balance';
   @Input() icono!: string;
 
   get color() {
     switch (this.tipo) {
-      case 'ingreso': return 'success';
-      case 'gasto': return 'danger';
+      case 'income': return 'success';
+      case 'expense': return 'danger';
       default: return 'primary';
     }
   }
