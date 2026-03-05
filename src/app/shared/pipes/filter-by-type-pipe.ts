@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Transaction } from '../../core/interfaces/transaction.interface';
 
 @Pipe({
   name: 'filterByTypePipe',
@@ -6,12 +7,17 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterByTypePipe implements PipeTransform {
 
-  transform(transacciones: any[], tipo: string): any[] {
-    if (!tipo || tipo === 'todos') {
-      return transacciones;
+  transform(transactions: Transaction[], type: string): Transaction[] { //filtra las transacciones por tipo (ingreso, gasto o todos)
+    if (!transactions) {
+      return [];
     }
 
-    return transacciones.filter(t => t.tipo === tipo);
+    if (!type || type === 'todos') {
+      return transactions;
+    }
+
+    const filtered = transactions.filter(t => t.type === type);
+    return filtered;
   }
 
 }

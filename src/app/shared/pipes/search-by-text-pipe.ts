@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Transaction } from '../../core/interfaces/transaction.interface';
 
 @Pipe({
   name: 'searchByTextPipe',
@@ -6,8 +7,22 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SearchByTextPipe implements PipeTransform {
 
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return null;
+  transform(transactions: Transaction[], searchText: string): Transaction[] { //filtra las transacciones por texto en la descripción
+    if (!transactions) {
+      return [];
+    }
+
+    if (!searchText) {
+      return transactions;
+    }
+
+    const lowerSearchText = searchText.toLowerCase();
+    const filtered = transactions.filter(t => {
+      const description = t.description.toLowerCase();
+      const isMatch = description.includes(lowerSearchText);
+      return isMatch;
+    });
+    return filtered;
   }
 
 }

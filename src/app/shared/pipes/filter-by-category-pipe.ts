@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Transaction } from '../../core/interfaces/transaction.interface';
 
 @Pipe({
   name: 'filterByCategoryPipe',
@@ -6,8 +7,17 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterByCategoryPipe implements PipeTransform {
 
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return null;
+  transform(transactions: Transaction[], categoryId: string): Transaction[] { //filtra las transacciones por categoria
+    if (!transactions) {
+      return [];
+    }
+
+    if (!categoryId) {
+      return transactions;
+    }
+
+    const filtered = transactions.filter(t => t.categoryId === categoryId);
+    return filtered;
   }
 
 }
