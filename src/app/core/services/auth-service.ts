@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { StorageService } from './storage-service';
 import { User } from '../interfaces/user.interface';
+import { StorageService } from './storage-service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class AuthService {
   private tokenSubject = new BehaviorSubject<string | null>(null);
   public token$: Observable<string | null> = this.tokenSubject.asObservable();
 
-  constructor(private storage: StorageService) {//carga el estado inicial desde el storage
+  constructor(private storage: StorageService) {
     this.storage.getUser().then((user) => {
       if (user) {
         this.userSubject.next(user);
@@ -26,6 +26,19 @@ export class AuthService {
         this.tokenSubject.next(token);
       }
     });
+  }
+
+  /**
+   * Devuelve el token almacenado consultando el storage.
+   * El método también actualiza el subject interno para que
+   * las escuchas reactivas se sincronicen.
+   */
+  async getStoredToken(): Promise<string | null> {
+    const token = await this.storage.getAuthToken();
+    if (token) {
+      this.tokenSubject.next(token);
+    }
+    return token;
   }
 
   async register(user: Omit<User, 'id' | 'createdAt'>): Promise<User> { //registra y autentica a un nuevo usuario en el storage

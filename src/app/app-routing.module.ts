@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { authguardGuard } from './core/guards/authguard-guard';
 
 const routes: Routes = [
   {
@@ -21,23 +22,23 @@ const routes: Routes = [
   },
   {
     path: 'tabs',
-    loadChildren: () => import('./features/tabs/tabs/tabs.module').then( m => m.TabsPageModule)
+    loadChildren: () => import('./features/tabs/tabs/tabs.module').then( m => m.TabsPageModule),
+    canActivate: [authguardGuard]
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./features/dashboard/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+    loadChildren: () => import('./features/dashboard/dashboard/dashboard.module').then( m => m.DashboardPageModule),
+    canActivate: [authguardGuard]
   },
   {
     path: 'lista-transaction-page',
-    loadChildren: () => import('./features/transactions/lista-transaction-page/lista-transaction-page.module').then( m => m.ListaTransactionPagePageModule)
+    loadChildren: () => import('./features/transactions/lista-transaction-page/lista-transaction-page.module').then( m => m.ListaTransactionPagePageModule),
+    canActivate: [authguardGuard]
   },
   {
     path: 'details-transaction-page',
-    loadChildren: () => import('./features/transactions/details-transaction-page/details-transaction-page.module').then( m => m.DetailsTransactionPagePageModule)
-  },
-  {
-    path: 'dashboard',
-    loadChildren: () => import('./features/dashboard/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+    loadChildren: () => import('./features/transactions/details-transaction-page/details-transaction-page.module').then( m => m.DetailsTransactionPagePageModule),
+    canActivate: [authguardGuard]
   },
 ];
 

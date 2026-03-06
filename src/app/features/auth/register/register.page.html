@@ -1,13 +1,60 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>register</ion-title>
+    <ion-title>Registro</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">register</ion-title>
+      <ion-title size="large">Registro</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div class="register-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Crear Cuenta</ion-card-title>
+        <ion-card-subtitle>Únete a MoneyWise</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+          <ion-item>
+            <ion-label position="floating">Nombre completo</ion-label>
+            <ion-input type="text" formControlName="name" placeholder="Tu nombre completo" required>
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Correo electrónico</ion-label>
+            <ion-input type="email" formControlName="email" placeholder="tu@email.com" required>
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input type="password" formControlName="password" placeholder="Mínimo 6 caracteres" required>
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Confirmar contraseña</ion-label>
+            <ion-input type="password" formControlName="confirmPassword" placeholder="Repite tu contraseña" required>
+            </ion-input>
+          </ion-item>
+
+          <ion-button expand="block" type="submit" [disabled]="registerForm.invalid || isLoading || !passwordsMatch"
+            class="ion-margin-top">
+            <ion-spinner *ngIf="isLoading" slot="start" name="crescent"></ion-spinner>
+            {{ isLoading ? 'Creando cuenta...' : 'Crear Cuenta' }}
+          </ion-button>
+        </form>
+
+        <ion-button fill="clear" expand="block" routerLink="/login" class="ion-margin-top">
+          ¿Ya tienes cuenta? Inicia sesión
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
