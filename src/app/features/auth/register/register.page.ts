@@ -48,6 +48,48 @@ export class RegisterPage implements OnInit {
     return null;
   }
 
+  get nameError(): string | null {
+    const control = this.registerForm.get('name');
+    if (control?.invalid && control?.touched) {
+      if (control.errors?.['required']) return 'El nombre es requerido.';
+      if (control.errors?.['minlength']) return 'El nombre debe tener al menos 2 caracteres.';
+    }
+    return null;
+  }
+
+  get emailError(): string | null {
+    const control = this.registerForm.get('email');
+    if (control?.invalid && control?.touched) {
+      if (control.errors?.['required']) return 'El email es requerido.';
+      if (control.errors?.['email']) return 'Ingresa un email válido.';
+    }
+    return null;
+  }
+
+  get passwordError(): string | null {
+    const control = this.registerForm.get('password');
+    if (control?.invalid && control?.touched) {
+      if (control.errors?.['required']) return 'La contraseña es requerida.';
+      if (control.errors?.['minlength']) return 'La contraseña debe tener al menos 6 caracteres.';
+    }
+    return null;
+  }
+
+  get confirmPasswordError(): string | null {
+    const control = this.registerForm.get('confirmPassword');
+    if (control?.invalid && control?.touched) {
+      if (control.errors?.['required']) return 'La confirmación de contraseña es requerida.';
+    }
+    return null;
+  }
+
+  get passwordMismatchError(): string | null {
+    if (!this.passwordsMatch && this.registerForm.get('confirmPassword')?.touched && this.registerForm.get('password')?.touched) {
+      return 'Las contraseñas no coinciden.';
+    }
+    return null;
+  }
+
   get passwordsMatch(): boolean {
     const password = this.registerForm.get('password')?.value;
     const confirmPassword = this.registerForm.get('confirmPassword')?.value;

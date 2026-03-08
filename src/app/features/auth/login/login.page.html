@@ -1,55 +1,44 @@
-
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true" class="ion-padding" color="primary">
   <div class="login-container">
     <ion-card>
       <ion-card-header>
-        <ion-card-title>Bienvenido a MoneyWise</ion-card-title>
-        <ion-card-subtitle>Ingresa tus credenciales</ion-card-subtitle>
+        <ion-text color="tertiary">
+          <h1>Hola, bienvenido a MoneyWise</h1>
+        </ion-text>
+        <ion-text>Ingresa tus credenciales</ion-text>
       </ion-card-header>
 
       <ion-card-content>
         <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-input
-                  label="Email"
-                  type="email"
-                  placeholder="email@email.com"
-                  formControlName="email"
-                  required
-                ></ion-input>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <ion-input
-                  position="floating"
-                  label="Contraseña"
-                  type="password"
-                  placeholder="******"
-                  formControlName="password"
-                  required
-                ></ion-input>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-          
-          <ion-button
-            expand="block"
-            type="submit"
-            [disabled]="loginForm.invalid || isLoading"
-            class="ion-margin-top">
+          <ion-item>
+            <ion-label position="floating">Email:</ion-label>
+            <ion-input type="email" formControlName="email" required>
+            </ion-input>
+          </ion-item>
+          @if (emailError) {
+          <ion-text color="danger" class="error-message">
+            <small>{{ emailError }}</small>
+          </ion-text>
+          }
+
+          <ion-item>
+            <ion-label position="floating">Contraseña:</ion-label>
+            <ion-input type="password" formControlName="password" required>
+            </ion-input>
+          </ion-item>
+          @if (passwordError) {
+          <ion-text color="danger" class="error-message">
+            <small>{{ passwordError }}</small>
+          </ion-text>
+          }
+
+          <ion-button expand="block" type="submit" [disabled]="loginForm.invalid || isLoading" class="ion-margin-top">
             <ion-spinner *ngIf="isLoading" slot="start" name="crescent"></ion-spinner>
             {{ isLoading ? 'Iniciando sesión...' : 'Iniciar Sesión' }}
           </ion-button>
         </form>
 
-        <ion-button
-          fill="clear"
-          expand="block"
-          routerLink="/register"
-          class="ion-margin-top">
+        <ion-button fill="clear" expand="block" routerLink="/register" class="ion-margin-top">
           ¿No tienes cuenta? Regístrate
         </ion-button>
       </ion-card-content>

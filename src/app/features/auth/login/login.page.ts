@@ -33,6 +33,24 @@ export class LoginPage implements OnInit {
     });
   }
 
+  get emailError(): string | null {
+    const control = this.loginForm.get('email');
+    if (control?.invalid && control?.touched) {
+      if (control.errors?.['required']) return 'El email es requerido.';
+      if (control.errors?.['email']) return 'Ingresa un email válido.';
+    }
+    return null;
+  }
+
+  get passwordError(): string | null {
+    const control = this.loginForm.get('password');
+    if (control?.invalid && control?.touched) {
+      if (control.errors?.['required']) return 'La contraseña es requerida.';
+      if (control.errors?.['minlength']) return 'La contraseña debe tener al menos 6 caracteres.';
+    }
+    return null;
+  }
+
   async onLogin() {
     if (this.loginForm.invalid) {
       this.showToast('Por favor, completa todos los campos correctamente');

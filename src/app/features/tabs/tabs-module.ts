@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 
 import { TabsRoutingModule } from './tabs-routing-module';
+import { TabsPage } from './tabs/tabs.page';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [TabsPage],
   imports: [
     CommonModule,
+    IonicModule,
     TabsRoutingModule
   ]
 })

@@ -1,13 +1,28 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>tabs</ion-title>
+    <ion-buttons slot="start" *ngIf="showBackButton">
+      <ion-button (click)="goBack()">
+        <ion-icon name="chevron-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ tabTitle }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">tabs</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-tabs (ionTabsDidChange)="onTabChange($event)">
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="dashboard" href="/tabs/dashboard" [class.tab-active]="currentTab === 'dashboard'">
+        <ion-icon name="bar-chart"></ion-icon>
+        <ion-label>Dashboard</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="transactions" href="/tabs/transactions" [class.tab-active]="currentTab === 'transactions'">
+        <ion-icon name="swap-horizontal"></ion-icon>
+        <ion-label>Transacciones</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+
+    <ion-router-outlet></ion-router-outlet>
+  </ion-tabs>
 </ion-content>

@@ -1,0 +1,21 @@
+ion-tab-button {
+  &.tab-active {
+    --color-selected: var(--ion-color-primary);
+    --color: var(--ion-color-primary);
+    
+    ion-icon {
+      color: var(--ion-color-primary);
+    }
+    
+    ion-label {
+      color: var(--ion-color-primary);
+    }
+  }
+}
+
+ion-header {
+  ion-toolbar {
+    --background: var(--ion-color-primary);
+    --color: white;
+  }
+}
