@@ -3,6 +3,11 @@
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="end">
+        <div class="user-info" *ngIf="user$ | async as user">
+          <ion-label class="user-name">{{ user?.name || 'Usuario' }}</ion-label>
+        </div>
+      </ion-buttons>
+      <ion-buttons slot="end">
         <ion-button (click)="logout()">
           <ion-icon name="log-out-outline"></ion-icon>
         </ion-button>

@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { User } from '../../../core/interfaces/user.interface';
 import { AuthService } from 'src/app/core/services/auth-service';
+import { Observable } from 'rxjs';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tabs',
@@ -16,12 +18,16 @@ export class TabsPage implements OnInit {
     'dashboard': 'Dashboard',
     'transactions': 'Transacciones'
   };
+  user$: Observable<User | null>;
 
   constructor(
     private router: Router,
     private location: Location,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private alertController: AlertController
+  ) {
+    this.user$ = this.authService.user$;
+  }
 
   ngOnInit() {
     // Inicial la tab actual basada en la URL
@@ -57,13 +63,36 @@ export class TabsPage implements OnInit {
     return this.router.url !== '/tabs/dashboard';
   }
 
-  logout() {
-    this.authService.logout().then(() => {
-      this.router.navigate(['/auth/login']);
-    });
-  }
+  async logout() {
+  const alert = await this.alertController.create({
+    header: 'Cerrar Sesión',
+    message: '¿Estás seguro?',
+    buttons: [
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        cssClass: 'secondary'
+      },
+      {
+        text: 'Cerrar Sesión',
+        cssClass: 'danger',
+        handler: () => {
+          this.authService.logout().then(() => {
+            this.router.navigate(['/auth/login']);
+          });
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
 
   get tabTitle(): string {
     return this.tabNames[this.currentTab] || 'Dashboard';
+  }
+
+  getUserName(): string {
+    return '';
   }
 }

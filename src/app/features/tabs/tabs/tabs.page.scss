@@ -45,6 +45,25 @@ ion-tab-button {
   }
 }
 
+// Estilos para el nombre de usuario
+.user-info {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  
+  .user-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+  }
+}
+
+
 ion-header {
   ion-toolbar {
     --background: var(--ion-color-primary);
