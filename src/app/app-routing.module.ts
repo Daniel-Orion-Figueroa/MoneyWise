@@ -4,42 +4,23 @@ import { authguardGuard } from './core/guards/authguard-guard';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: 'auth',
+    loadChildren: () => import('./features/auth/auth-module').then( m => m.AuthModule)
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'auth/login',
     pathMatch: 'full'
   },
   {
-    path: 'login',
-    loadChildren: () => import('./features/auth/login/login.module').then( m => m.LoginPageModule)
-  },
-  {
-    path: 'register',
-    loadChildren: () => import('./features/auth/register/register.module').then( m => m.RegisterPageModule)
-  },
-  {
     path: 'tabs',
-    loadChildren: () => import('./features/tabs/tabs/tabs.module').then( m => m.TabsPageModule),
+    loadChildren: () => import('./features/tabs/tabs-module').then( m => m.TabsModule),
     canActivate: [authguardGuard]
   },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./features/dashboard/dashboard/dashboard.module').then( m => m.DashboardPageModule),
-    canActivate: [authguardGuard]
-  },
-  {
-    path: 'lista-transaction-page',
-    loadChildren: () => import('./features/transactions/lista-transaction-page/lista-transaction-page.module').then( m => m.ListaTransactionPagePageModule),
-    canActivate: [authguardGuard]
-  },
-  {
-    path: 'details-transaction-page',
-    loadChildren: () => import('./features/transactions/details-transaction-page/details-transaction-page.module').then( m => m.DetailsTransactionPagePageModule),
-    canActivate: [authguardGuard]
-  },
+    path: '**',
+    redirectTo: 'auth/login'
+  }
 ];
 
 @NgModule({

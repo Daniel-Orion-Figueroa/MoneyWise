@@ -3,18 +3,20 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
+import { SharedModule } from '../../../shared/shared-module';
 
-import { ListaTransactionPagePageRoutingModule } from './lista-transaction-page-routing.module';
+import { ListaTransactionPageRoutingModule } from './lista-transaction-page-routing.module';
 
-import { ListaTransactionPagePage } from './lista-transaction-page.page';
+import { ListaTransactionPage } from './lista-transaction-page.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ListaTransactionPagePageRoutingModule
+    SharedModule,
+    ListaTransactionPageRoutingModule
   ],
-  declarations: [ListaTransactionPagePage]
+  declarations: [ListaTransactionPage]
 })
-export class ListaTransactionPagePageModule {}
+export class ListaTransactionPageModule {}

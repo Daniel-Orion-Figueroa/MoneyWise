@@ -1,20 +1,100 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>dashboard</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="scroll-content">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">dashboard</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="ion-padding">
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-container">
+      <ion-spinner></ion-spinner>
+      <p>Cargando datos...</p>
+    </div>
+
+    <!-- Dashboard Content -->
+    <ng-container *ngIf="!isLoading">
+      <!-- Resumen Financiero - Primera Fila (Saldo Actual) -->
+      <div class="summary-section">
+        <div class="balance-row">
+          <app-dashboard-card
+            titulo="Saldo Actual"
+            [monto]="currentBalance"
+            tipo="balance"
+            icono="wallet-outline">
+          </app-dashboard-card>
+        </div>
+        
+        <!-- Segunda Fila (Ingresos y Gastos) -->
+        <div class="income-expense-row">
+          <app-dashboard-card
+            titulo="Ingresos del Mes"
+            [monto]="monthlyIncome"
+            tipo="income"
+            icono="trending-up-outline">
+          </app-dashboard-card>
+
+          <app-dashboard-card
+            titulo="Gastos del Mes"
+            [monto]="monthlyExpense"
+            tipo="expense"
+            icono="trending-down-outline">
+          </app-dashboard-card>
+        </div>
+      </div>
+
+      <!-- Análisis por Categoría -->
+      <div class="categories-section">
+        <h2>Análisis por Categoría</h2>
+        
+        <!-- Ingresos por Categoría -->
+        <div class="category-group">
+          <h3>
+            <ion-icon name="trending-up-outline"></ion-icon>
+            Ingresos por Categoría
+          </h3>
+          
+          <div *ngIf="Object.keys(categoryIncomes).length === 0" class="empty-categories">
+            <app-empty-state
+              mensaje="No hay ingresos registrados este mes"
+              icono="pie-chart-outline"
+              accion="Agregar Transacción">
+            </app-empty-state>
+          </div>
+
+          <div *ngFor="let category of categoryIncomes | keyvalue" class="category-item">
+            <app-progress-bar-category
+              [categoria]="category.value.name"
+              [porcentaje]="category.value.percentage"
+              [color]="category.value.color"
+              [monto]="category.value.amount">
+            </app-progress-bar-category>
+          </div>
+        </div>
+
+        <!-- Gastos por Categoría -->
+        <div class="category-group">
+          <h3>
+            <ion-icon name="trending-down-outline"></ion-icon>
+            Gastos por Categoría
+          </h3>
+          
+          <div *ngIf="Object.keys(categoryExpenses).length === 0" class="empty-categories">
+            <app-empty-state
+              mensaje="No hay gastos registrados este mes"
+              icono="pie-chart-outline"
+              accion="Agregar Transacción">
+            </app-empty-state>
+          </div>
+
+          <div *ngFor="let category of categoryExpenses | keyvalue" class="category-item">
+            <app-progress-bar-category
+              [categoria]="category.value.name"
+              [porcentaje]="category.value.percentage"
+              [color]="category.value.color"
+              [monto]="category.value.amount">
+            </app-progress-bar-category>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
 </ion-content>
-
-<app-dashboard-card
-  titulo="Saldo Total"
-  [monto]="250000"
-  type="saldo"
-  icono="wallet-outline">
-</app-dashboard-card>

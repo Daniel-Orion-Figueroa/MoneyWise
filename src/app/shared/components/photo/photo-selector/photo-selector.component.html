@@ -1,3 +1,26 @@
-<p>
-  photo-selector works!
-</p>
+<div class="photo-selector">
+  <div class="photo-preview" *ngIf="hasPhoto()">
+    <img [src]="photoUrl" alt="Foto de transacción" (error)="removePhoto()">
+    <ion-button 
+      class="remove-btn" 
+      fill="clear" 
+      size="small" 
+      (click)="removePhoto()">
+      <ion-icon name="close-circle"></ion-icon>
+    </ion-button>
+  </div>
+  
+  <div class="photo-placeholder" *ngIf="!hasPhoto()" (click)="selectPhoto()">
+    <ion-icon name="camera-outline"></ion-icon>
+    <p>Agregar foto</p>
+  </div>
+  
+  <ion-button 
+    *ngIf="hasPhoto()" 
+    fill="outline" 
+    expand="block" 
+    (click)="selectPhoto()">
+    <ion-icon name="camera-outline" slot="start"></ion-icon>
+    Cambiar foto
+  </ion-button>
+</div>

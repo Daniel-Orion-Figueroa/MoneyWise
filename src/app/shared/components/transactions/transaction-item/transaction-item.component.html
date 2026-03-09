@@ -1,3 +1,26 @@
-<p>
-  transaction-item works!
-</p>
+<ion-item button (click)="onItemClick()">
+  <ion-avatar slot="start">
+    <app-category-icon 
+      [categoria]="getCategoryInfo()?.name || ''" 
+      tamaño="small">
+    </app-category-icon>
+  </ion-avatar>
+  
+  <ion-label>
+    <h2>{{ getCategoryInfo()?.name || 'Sin categoría' }}</h2>
+    <p>{{ transaction.description || 'Sin descripción' }}</p>
+    <ion-note color="medium">{{ transaction.date | dateFormat }}</ion-note>
+  </ion-label>
+  
+  <div slot="end" class="transaction-amount">
+    <app-amount-display 
+      [monto]="transaction.amount" 
+      [tipo]="getTransactionType()"
+      tamaño="medium">
+    </app-amount-display>
+    
+    <div class="transaction-icons" *ngIf="hasReceipt()">
+      <ion-icon name="camera-outline" color="medium"></ion-icon>
+    </div>
+  </div>
+</ion-item>

@@ -1,0 +1,50 @@
+.filter-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  
+  ion-searchbar {
+    --background: var(--ion-color-light);
+    --border-radius: 8px;
+  }
+  
+  ion-select {
+    --placeholder-color: var(--ion-color-medium);
+  }
+}
+
+ion-toolbar {
+  --background: var(--ion-color-light);
+  --border-width: 0;
+  
+  ion-segment {
+    --background: transparent;
+    
+    ion-segment-button {
+      --indicator-color: var(--ion-color-primary);
+      --color: var(--ion-color-medium);
+      --color-checked: var(--ion-color-primary);
+      
+      &.segment-button-checked {
+        --color: var(--ion-color-primary);
+      }
+    }
+  }
+}
+
+// Responsive
+@media (min-width: 768px) {
+  .filter-controls {
+    flex-direction: row;
+    align-items: center;
+    
+    ion-searchbar {
+      flex: 1;
+    }
+    
+    ion-select {
+      width: 200px;
+    }
+  }
+}

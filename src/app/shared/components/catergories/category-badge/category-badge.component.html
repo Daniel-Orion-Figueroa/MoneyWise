@@ -1,3 +1,4 @@
-<p>
-  category-badge works!
-</p>
+<ion-badge [style.background]="getCategoryColor()" class="category-badge">
+  <ion-icon *ngIf="showIcon" [name]="getCategoryIcon()" class="badge-icon"></ion-icon>
+  {{ getCategoryName() }}
+</ion-badge>

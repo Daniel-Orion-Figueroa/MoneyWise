@@ -1,3 +1,66 @@
-<p>
-  photo-gallery-modal works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Galería de Fotos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()" fill="clear">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Foto actual -->
+  <div class="current-photo" *ngIf="hasCurrentPhoto()">
+    <h3>Foto Actual</h3>
+    <div class="photo-preview">
+      <img [src]="currentPhoto" alt="Foto actual">
+    </div>
+    <ion-button 
+      expand="block" 
+      fill="outline" 
+      color="danger" 
+      (click)="removePhoto()">
+      <ion-icon name="trash-outline" slot="start"></ion-icon>
+      Eliminar Foto
+    </ion-button>
+  </div>
+
+  <!-- Opciones -->
+  <div class="photo-options">
+    <ion-card>
+      <ion-card-content>
+        <ion-button 
+          expand="block" 
+          fill="outline" 
+          (click)="takePhoto()">
+          <ion-icon name="camera-outline" slot="start"></ion-icon>
+          Tomar Foto
+        </ion-button>
+        
+        <ion-button 
+          expand="block" 
+          fill="outline" 
+          (click)="selectFromGallery()">
+          <ion-icon name="images-outline" slot="start"></ion-icon>
+          Seleccionar de Galería
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Preview de ejemplo -->
+  <div class="sample-photos">
+    <h3>Fotos de Ejemplo</h3>
+    <div class="photo-grid">
+      <div class="photo-item" (click)="takePhoto()">
+        <ion-icon name="camera"></ion-icon>
+        <span>Cámara</span>
+      </div>
+      <div class="photo-item" (click)="selectFromGallery()">
+        <ion-icon name="images"></ion-icon>
+        <span>Galería</span>
+      </div>
+    </div>
+  </div>
+</ion-content>

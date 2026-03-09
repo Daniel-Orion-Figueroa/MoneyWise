@@ -1,0 +1,64 @@
+.photo-selector {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.photo-preview {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1rem;
+  
+  img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .remove-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    --background: var(--ion-color-danger);
+    --color: white;
+    --border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    
+    ion-icon {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.photo-placeholder {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 1rem;
+  border: 2px dashed var(--ion-color-medium);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: var(--ion-color-primary);
+    background: var(--ion-color-light);
+  }
+  
+  ion-icon {
+    font-size: 3rem;
+    color: var(--ion-color-medium);
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    margin: 0;
+    color: var(--ion-color-medium);
+    font-size: 0.9rem;
+  }
+}

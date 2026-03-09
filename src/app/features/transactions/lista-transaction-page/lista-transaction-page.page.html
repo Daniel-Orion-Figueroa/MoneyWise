@@ -1,13 +1,56 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>listaTransactionPage</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">listaTransactionPage</ion-title>
+      <ion-title size="large">Transacciones</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Filtros -->
+  <app-filter-bar
+    [tipoSeleccionado]="selectedType"
+    [categoriaSeleccionada]="selectedCategory"
+    [buscarTexto]="searchText"
+    (onTipoChange)="onTypeChange($event)"
+    (onCategoriaChange)="onCategoryChange($event)"
+    (onBuscarChange)="onSearchChange($event)">
+  </app-filter-bar>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <ion-spinner></ion-spinner>
+    <p>Cargando transacciones...</p>
+  </div>
+
+  <!-- Lista de Transacciones -->
+  <div *ngIf="!isLoading" class="transactions-container">
+    <!-- Estado Vacío -->
+    <div *ngIf="filteredTransactions.length === 0" class="empty-state">
+      <app-empty-state
+        mensaje="No hay transacciones registradas"
+        icono="receipt-outline"
+        accion="Agregar Transacción">
+      </app-empty-state>
+    </div>
+
+    <!-- Lista -->
+    <ion-list *ngIf="filteredTransactions.length > 0">
+      <ion-item-group *ngFor="let transaction of filteredTransactions">
+        <app-transaction-item
+          [transaction]="transaction"
+          (onClick)="onTransactionClick($event)">
+        </app-transaction-item>
+      </ion-item-group>
+    </ion-list>
+  </div>
+
+  <!-- Botón Flotante -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="abrirFormulario()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

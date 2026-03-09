@@ -1,3 +1,84 @@
-<p>
-  form-transaction-modal works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ isEditing ? 'Editar Transacción' : 'Nueva Transacción' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()" fill="clear">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="transactionForm" (ngSubmit)="onSave()">
+    <!-- Tipo de Transacción -->
+    <app-select-field
+      label="Tipo"
+      [options]="[
+        { value: 'income', label: 'Ingreso' },
+        { value: 'expense', label: 'Gasto' }
+      ]"
+      formControlName="type"
+      placeholder="Seleccionar tipo">
+    </app-select-field>
+
+    <!-- Foto -->
+    <div class="photo-section">
+      <app-photo-selector 
+        [photoUrl]="selectedPhoto"
+        (photoSelected)="onPhotoSelected($event)">
+      </app-photo-selector>
+    </div>
+
+    <!-- Descripción -->
+    <app-input-field
+      label="Descripción"
+      type="text"
+      placeholder="Ej: Compra en supermercado"
+      formControlName="description">
+    </app-input-field>
+
+    <!-- Monto -->
+    <app-input-field
+      label="Monto"
+      type="number"
+      placeholder="0.00"
+      [min]="0.01"
+      step="0.01"
+      formControlName="amount">
+    </app-input-field>
+
+    <!-- Categoría -->
+    <app-select-field
+      label="Categoría"
+      [options]="categoryOptions"
+      formControlName="categoryId"
+      placeholder="Seleccionar categoría">
+    </app-select-field>
+
+    <!-- Fecha -->
+    <app-date-field
+      label="Fecha"
+      formControlName="date">
+    </app-date-field>
+
+    <!-- Botones de acción -->
+    <div class="action-buttons">
+      <ion-button 
+        type="submit" 
+        expand="block" 
+        [disabled]="transactionForm.invalid">
+        <ion-icon name="save-outline" slot="start"></ion-icon>
+        {{ isEditing ? 'Actualizar' : 'Guardar' }}
+      </ion-button>
+      
+      <ion-button 
+        expand="block" 
+        fill="outline" 
+        (click)="close()">
+        <ion-icon name="close-outline" slot="start"></ion-icon>
+        Cancelar
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

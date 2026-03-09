@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { AuthService } from '../../../core/services/auth-service';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -10,9 +12,11 @@ import { AuthService } from '../../../core/services/auth-service';
   styleUrls: ['./login.page.scss'],
   standalone: false
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
   loginForm!: FormGroup;
   isLoading = false;
+  private authSubscription?: Subscription;
+  private routerSubscription?: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -24,6 +28,46 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.initializeForm();
+    this.setupAuthListener();
+    this.setupRouterListener();
+  }
+
+  private setupAuthListener() {
+    // Escuchar cambios de autenticación para limpiar campos
+    this.authSubscription = this.authService.user$.subscribe(user => {
+      if (user) {
+        // Si el usuario se autentica, limpiar campos
+        this.clearForm();
+      }
+    });
+  }
+
+  private setupRouterListener() {
+    // Limpiar campos cuando el usuario navega a la página de login
+    this.routerSubscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      if (event.urlAfterRedirects === '/auth/login' || event.url === '/auth/login') {
+        this.clearForm();
+      }
+    });
+  }
+
+  private clearForm() {
+    this.loginForm.reset({
+      email: '',
+      password: ''
+    });
+  }
+
+  ngOnDestroy() {
+    // Limpiar suscripciones al destruir el componente
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
   }
 
   private initializeForm() {

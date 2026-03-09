@@ -1,14 +1,13 @@
-<ion-card>
-  <ion-card-header>
-    <ion-card-title>
-      <ion-icon [name]="icono"></ion-icon>
-      {{ titulo }}
-    </ion-card-title>
-  </ion-card-header>
+<div class="dashboard-card">
+  <div class="card-icon" [class]="tipo">
+    <ion-icon [name]="icono"></ion-icon>
+  </div>
+  
+  <div class="card-header">
+    <h3>{{ titulo }}</h3>
+  </div>
 
-  <ion-card-content>
-    <ion-text [color]="color">
-      <h2>${{ monto | number:'1.0-0' }}</h2>
-    </ion-text>
-  </ion-card-content>
-</ion-card>
+  <div class="card-amount" [class]="tipo">
+    ${{ monto | number:'1.0-0' }}
+  </div>
+</div>

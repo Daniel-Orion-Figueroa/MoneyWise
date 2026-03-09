@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ListaTransactionPage } from './lista-transaction-page/lista-transaction-page.page';
+import { DetailsTransactionPage } from './details-transaction-page/details-transaction-page.page';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () =>
-      import('./lista-transaction-page/lista-transaction-page.module').then(m => m.ListaTransactionPagePageModule)
+    component: ListaTransactionPage
   },
   {
-    path: 'details',
-    loadChildren: () =>
-      import('./details-transaction-page/details-transaction-page.module').then(m => m.DetailsTransactionPagePageModule)
+    path: 'details/:id',
+    component: DetailsTransactionPage
+  },
+  {
+    path: 'new',
+    component: ListaTransactionPage
   }
 ];
 

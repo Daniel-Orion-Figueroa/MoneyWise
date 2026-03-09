@@ -1,3 +1,29 @@
-<p>
-  photo-preview works!
-</p>
+<div 
+  class="photo-preview" 
+  [class]="getSizeClass()" 
+  [class.clickable]="clickable"
+  (click)="onPhotoClick()">
+  
+  <!-- Small size - ion-avatar -->
+  <ion-avatar *ngIf="size === 'small'" class="photo-avatar">
+    <img [src]="src" [alt]="alt" (error)="onImageError($event)">
+  </ion-avatar>
+  
+  <!-- Medium size - ion-thumbnail -->
+  <ion-thumbnail *ngIf="size === 'medium'" class="photo-thumbnail">
+    <img [src]="src" [alt]="alt" (error)="onImageError($event)">
+  </ion-thumbnail>
+  
+  <!-- Large size - destacado -->
+  <div *ngIf="size === 'large'" class="photo-large">
+    <img [src]="src" [alt]="alt" (error)="onImageError($event)">
+    <div class="photo-overlay" *ngIf="clickable">
+      <ion-icon name="expand-outline"></ion-icon>
+    </div>
+  </div>
+  
+  <!-- Placeholder si no hay imagen -->
+  <div *ngIf="!src" class="photo-placeholder">
+    <ion-icon name="image-outline"></ion-icon>
+  </div>
+</div>

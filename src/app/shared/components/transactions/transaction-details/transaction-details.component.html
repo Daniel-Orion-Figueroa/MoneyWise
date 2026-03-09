@@ -1,3 +1,79 @@
-<p>
-  transaction-details works!
-</p>
+<ion-card class="transaction-details">
+  <ion-card-header>
+    <ion-card-title class="transaction-header">
+      <div class="transaction-info">
+        <app-category-icon 
+          [categoria]="getCategoryIcon()" 
+          [tamaño]="'medium'">
+        </app-category-icon>
+        <div class="transaction-text">
+          <h3>{{ getCategoryName() }}</h3>
+          <p *ngIf="transaction.description">{{ transaction.description }}</p>
+        </div>
+      </div>
+      <div class="transaction-amount">
+        <app-amount-display 
+          [monto]="transaction.amount" 
+          [tipo]="getTransactionTypeColor() === 'success' ? 'income' : 'expense'"
+          tamaño="large">
+        </app-amount-display>
+      </div>
+    </ion-card-title>
+  </ion-card-header>
+  
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <div class="detail-item">
+            <ion-label class="detail-label">Tipo</ion-label>
+            <ion-badge [color]="getTransactionTypeColor()">
+              {{ getTransactionTypeLabel() }}
+            </ion-badge>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="detail-item">
+            <ion-label class="detail-label">Fecha</ion-label>
+            <p class="detail-value">{{ formatDate() }}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row *ngIf="hasReceipt()">
+        <ion-col size="12">
+          <div class="detail-item">
+            <ion-label class="detail-label">Comprobante</ion-label>
+            <app-photo-preview 
+              *ngIf="transaction.photoUrl"
+              [src]="transaction.photoUrl" 
+              size="medium"
+              (onClick)="onPhotoClick()">
+            </app-photo-preview>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+    <!-- Botones de acción -->
+    <div class="action-buttons" *ngIf="showActions">
+      <ion-button 
+        fill="outline" 
+        size="small" 
+        color="primary"
+        (click)="editTransaction()">
+        <ion-icon name="create-outline" slot="start"></ion-icon>
+        Editar
+      </ion-button>
+      
+      <ion-button 
+        fill="outline" 
+        size="small" 
+        color="danger"
+        (click)="deleteTransaction()">
+        <ion-icon name="trash-outline" slot="start"></ion-icon>
+        Eliminar
+      </ion-button>
+    </div>
+  </ion-card-content>
+</ion-card>

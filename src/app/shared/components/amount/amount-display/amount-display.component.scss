@@ -1,0 +1,26 @@
+.amount-income {
+  color: var(--ion-color-success);
+  font-weight: 600;
+}
+
+.amount-expense {
+  color: var(--ion-color-danger);
+  font-weight: 600;
+}
+
+.amount-neutral {
+  color: var(--ion-color-dark);
+  font-weight: 600;
+}
+
+.amount-small {
+  font-size: 0.9rem;
+}
+
+.amount-medium {
+  font-size: 1.1rem;
+}
+
+.amount-large {
+  font-size: 1.3rem;
+}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { User } from '../../../core/interfaces/user.interface';
+import { AuthService } from 'src/app/core/services/auth-service';
 
 @Component({
   selector: 'app-tabs',
@@ -18,7 +19,8 @@ export class TabsPage implements OnInit {
 
   constructor(
     private router: Router,
-    private location: Location
+    private location: Location,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -41,15 +43,24 @@ export class TabsPage implements OnInit {
   }
 
   onTabChange(event: any) {
-    this.currentTab = event.detail.tab;
+    const tab = event.detail?.tab;
+    if (tab) {
+      this.currentTab = tab;
+    }
   }
 
   goBack() {
     this.location.back();
   }
 
-  showBackButton() {
-    
+  showBackButton(): boolean {
+    return this.router.url !== '/tabs/dashboard';
+  }
+
+  logout() {
+    this.authService.logout().then(() => {
+      this.router.navigate(['/auth/login']);
+    });
   }
 
   get tabTitle(): string {

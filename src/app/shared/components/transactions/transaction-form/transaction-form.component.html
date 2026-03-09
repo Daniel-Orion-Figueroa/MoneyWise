@@ -1,3 +1,75 @@
-<p>
-  transaction-form works!
-</p>
+<div class="transaction-form">
+  <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+    
+    <!-- Tipo de Transacción -->
+    <app-select-field
+      label="Tipo"
+      [options]="[
+        { value: TRANSACTION_TYPES.INCOME, label: 'Ingreso' },
+        { value: TRANSACTION_TYPES.EXPENSE, label: 'Gasto' }
+      ]"
+      formControlName="type"
+      placeholder="Seleccionar tipo">
+    </app-select-field>
+
+    <!-- Foto -->
+    <div class="photo-section">
+      <app-photo-selector 
+        [photoUrl]="transactionForm.get('photUrl')?.value"
+        (photoSelected)="onPhotoSelected($event)"
+        (photoRemoved)="onPhotoRemoved()">
+      </app-photo-selector>
+    </div>
+
+    <!-- Descripción -->
+    <app-input-field
+      label="Descripción"
+      type="text"
+      placeholder="Ej: Compra en supermercado"
+      formControlName="description">
+    </app-input-field>
+
+    <!-- Monto -->
+    <app-input-field
+      label="Monto"
+      type="number"
+      placeholder="0.00"
+      [min]="0.01"
+      step="0.01"
+      formControlName="amount">
+    </app-input-field>
+
+    <!-- Categoría -->
+    <app-select-field
+      label="Categoría"
+      [options]="categoryOptions"
+      formControlName="categoryId"
+      placeholder="Seleccionar categoría">
+    </app-select-field>
+
+    <!-- Fecha -->
+    <app-date-field
+      label="Fecha"
+      formControlName="date">
+    </app-date-field>
+
+    <!-- Botones de acción -->
+    <div class="action-buttons">
+      <ion-button 
+        type="submit" 
+        expand="block" 
+        [disabled]="transactionForm.invalid">
+        <ion-icon name="save-outline" slot="start"></ion-icon>
+        {{ transaction ? 'Actualizar' : 'Guardar' }}
+      </ion-button>
+      
+      <ion-button 
+        expand="block" 
+        fill="outline" 
+        (click)="cancel()">
+        <ion-icon name="close-outline" slot="start"></ion-icon>
+        Cancelar
+      </ion-button>
+    </div>
+  </form>
+</div>

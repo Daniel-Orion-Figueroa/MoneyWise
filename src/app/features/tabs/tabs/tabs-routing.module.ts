@@ -6,7 +6,22 @@ import { TabsPage } from './tabs.page';
 const routes: Routes = [
   {
     path: '',
-    component: TabsPage
+    component: TabsPage,
+    children: [
+      {
+        path: 'dashboard',
+        loadChildren: () => import('../../dashboard/dashboard/dashboard.module').then(m => m.DashboardPageModule)
+      },
+      {
+        path: 'transactions',
+        loadChildren: () => import('../../transactions/transactions.module').then(m => m.TransactionsModule)
+      },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      }
+    ]
   }
 ];
 

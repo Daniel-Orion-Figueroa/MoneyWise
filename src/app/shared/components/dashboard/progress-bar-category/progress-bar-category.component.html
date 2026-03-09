@@ -1,3 +1,14 @@
-<p>
-  progress-bar-category works!
-</p>
+
+<ion-item>
+  <ion-label>
+    <h2>{{ categoria }}</h2>
+    <p>${{ monto.toLocaleString() }}</p>
+  </ion-label>
+  <div class="progress-container">
+    <ion-progress-bar 
+      [value]="porcentaje / 100" 
+      [color]="colorClass">
+    </ion-progress-bar>
+    <span class="percentage-text">{{ porcentaje | number:'1.1-1' }}%</span>
+  </div>
+</ion-item>

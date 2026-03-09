@@ -1,0 +1,126 @@
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  
+  ion-spinner {
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    color: var(--ion-color-medium);
+    text-align: center;
+  }
+}
+
+.summary-section {
+  padding: 1rem;
+  background: var(--ion-background-color);
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+.summary-card {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 12px;
+  background: var(--ion-color-light);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  
+  ion-icon {
+    font-size: 1.5rem;
+    margin-right: 0.8rem;
+  }
+  
+  &.income {
+    ion-icon {
+      color: var(--ion-color-success);
+    }
+  }
+  
+  &.expense {
+    ion-icon {
+      color: var(--ion-color-danger);
+    }
+  }
+  
+  &.balance {
+    ion-icon {
+      color: var(--ion-color-primary);
+    }
+  }
+}
+
+.summary-info {
+  flex: 1;
+}
+
+.summary-label {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ion-color-medium);
+  font-weight: 500;
+}
+
+.summary-amount {
+  margin: 0.2rem 0 0 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  
+  &.income {
+    color: var(--ion-color-success);
+  }
+  
+  &.expense {
+    color: var(--ion-color-danger);
+  }
+  
+  &.balance {
+    color: var(--ion-color-primary);
+  }
+}
+
+.transactions-container {
+  padding: 0 1rem 1rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  
+  ion-icon {
+    font-size: 4rem;
+    color: var(--ion-color-medium);
+    margin-bottom: 1rem;
+  }
+  
+  h3 {
+    color: var(--ion-color-medium);
+    margin-bottom: 1rem;
+  }
+}
+
+ion-list {
+  margin: 0;
+  padding: 0;
+}
+
+ion-item-group {
+  margin-bottom: 0.5rem;
+}
+
+ion-fab {
+  margin-bottom: 2rem;
+}

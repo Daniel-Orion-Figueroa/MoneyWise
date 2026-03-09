@@ -1,3 +1,20 @@
-<p>
-  input-field works!
-</p>
+<ion-item class="input-field">
+  <ion-label position="stacked">
+    {{ label }}
+    <span *ngIf="required" color="danger">*</span>
+  </ion-label>
+  <ion-input
+    [type]="type"
+    [value]="value"
+    [placeholder]="placeholder"
+    [disabled]="disabled || isDisabled"
+    [min]="min"
+    [max]="max"
+    [step]="step"
+    (ionInput)="onInputChange($event)">
+  </ion-input>
+  
+  <ion-note *ngIf="error" color="danger" slot="error">
+    {{ error }}
+  </ion-note>
+</ion-item>

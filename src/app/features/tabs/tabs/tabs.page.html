@@ -1,28 +1,34 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start" *ngIf="showBackButton">
-      <ion-button (click)="goBack()">
-        <ion-icon name="chevron-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>{{ tabTitle }}</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-tabs (ionTabsDidChange)="onTabChange($event)">
 
-<ion-content>
-  <ion-tabs (ionTabsDidChange)="onTabChange($event)">
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="dashboard" href="/tabs/dashboard" [class.tab-active]="currentTab === 'dashboard'">
-        <ion-icon name="bar-chart"></ion-icon>
-        <ion-label>Dashboard</ion-label>
-      </ion-tab-button>
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button (click)="logout()">
+          <ion-icon name="log-out-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>{{ tabTitle }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="dashboard" routerLink="/tabs/dashboard">
+      <ion-icon name="bar-chart"></ion-icon>
+      <ion-label>Dashboard</ion-label>
+    </ion-tab-button>
+    
+    <!-- la única manera de hacer que el contenido se muestre sin alterar el tab bar -->
+    <ion-tab-button tab="middle" class="middle-tab" disabled>
+      <ion-content>
+        <ion-router-outlet></ion-router-outlet>
+      </ion-content>
+    </ion-tab-button>
+    
+    <ion-tab-button tab="transactions" routerLink="/tabs/transactions">
+      <ion-icon name="swap-horizontal"></ion-icon>
+      <ion-label>Transacciones</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
 
-      <ion-tab-button tab="transactions" href="/tabs/transactions" [class.tab-active]="currentTab === 'transactions'">
-        <ion-icon name="swap-horizontal"></ion-icon>
-        <ion-label>Transacciones</ion-label>
-      </ion-tab-button>
-    </ion-tab-bar>
-
-    <ion-router-outlet></ion-router-outlet>
-  </ion-tabs>
-</ion-content>
+</ion-tabs>

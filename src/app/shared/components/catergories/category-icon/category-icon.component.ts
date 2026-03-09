@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { DEFAULT_CATEGORIES } from '../../../../core/constants/category.constants';
 
 @Component({
   selector: 'app-category-icon',
@@ -6,10 +7,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./category-icon.component.scss'],
   standalone: false
 })
-export class CategoryIconComponent  implements OnInit {
+export class CategoryIconComponent {
+
+  @Input() categoria!: string;
+  @Input() tamaño: 'small' | 'medium' = 'medium';
 
   constructor() { }
 
-  ngOnInit() {}
+  getCategoryInfo() {
+    return DEFAULT_CATEGORIES.find((cat: any) => cat.name === this.categoria);
+  }
+
+  getCategoryIcon(): string {
+    const category = this.getCategoryInfo();
+    return category?.icon || 'help-outline';
+  }
+
+  getCategoryColor(): string {
+    const category = this.getCategoryInfo();
+    return category?.color || '#92949c';
+  }
+
+  getSizeClass(): string {
+    return `icon-${this.tamaño}`;
+  }
 
 }

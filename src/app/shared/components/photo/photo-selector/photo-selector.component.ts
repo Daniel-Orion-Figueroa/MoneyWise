@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { PhotoGalleryModalComponent } from '../photo-gallery-modal/photo-gallery-modal.component';
 
 @Component({
   selector: 'app-photo-selector',
@@ -6,10 +8,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./photo-selector.component.scss'],
   standalone: false
 })
-export class PhotoSelectorComponent  implements OnInit {
+export class PhotoSelectorComponent {
+  @Input() photoUrl: string | null = null;
+  @Output() photoSelected = new EventEmitter<string | null>();
 
-  constructor() { }
+  constructor(private modalCtrl: ModalController) {}
 
-  ngOnInit() {}
+  async selectPhoto() {
+    const modal = await this.modalCtrl.create({
+      component: PhotoGalleryModalComponent,
+      componentProps: {
+        currentPhoto: this.photoUrl
+      }
+    });
 
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+    
+    if (data) {
+      this.photoSelected.emit(data.photo);
+    }
+  }
+
+  removePhoto() {
+    this.photoSelected.emit(null);
+  }
+
+  hasPhoto(): boolean {
+    return !!this.photoUrl;
+  }
 }

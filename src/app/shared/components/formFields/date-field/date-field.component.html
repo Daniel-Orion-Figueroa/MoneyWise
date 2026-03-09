@@ -1,3 +1,13 @@
-<p>
-  date-field works!
-</p>
+<ion-item class="date-field">
+  <ion-label position="stacked">{{ label }}</ion-label>
+  <ion-datetime
+    [value]="value"
+    [disabled]="disabled || isDisabled"
+    presentation="date"
+    (ionChange)="onDateChange($event)">
+  </ion-datetime>
+  
+  <ion-note *ngIf="error" color="danger" slot="error">
+    {{ error }}
+  </ion-note>
+</ion-item>

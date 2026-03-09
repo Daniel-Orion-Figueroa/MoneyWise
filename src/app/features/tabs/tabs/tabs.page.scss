@@ -11,6 +11,38 @@ ion-tab-button {
       color: var(--ion-color-primary);
     }
   }
+  
+  // Tab del medio casi invisible
+  &.middle-tab {
+    flex: 0; // 5% del tamaño normal (casi invisible)
+    min-width: 1px;
+    max-width: 1px;
+    
+    // Completamente inactivo
+    &:hover,
+    &:active {
+      --background: transparent;
+    }
+    
+    &.tab-active {
+      --color-selected: transparent;
+      --color: transparent;
+    }
+    
+    // Ocultar completamente cualquier efecto visual
+    &::part(native) {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+    
+    // Ocultar ripple y focus effects
+    &::part(native):hover,
+    &::part(native):focus,
+    &::part(native):active {
+      background: transparent;
+    }
+  }
 }
 
 ion-header {

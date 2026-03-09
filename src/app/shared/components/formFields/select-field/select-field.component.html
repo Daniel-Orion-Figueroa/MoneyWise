@@ -1,3 +1,20 @@
-<p>
-  select-field works!
-</p>
+<ion-item class="select-field">
+  <ion-label position="stacked">
+    {{ label }}
+    <span *ngIf="required" color="danger">*</span>
+  </ion-label>
+  <ion-select
+    [value]="value"
+    [placeholder]="placeholder"
+    [disabled]="disabled || isDisabled"
+    (ionChange)="onSelectChange($event)">
+    
+    <ion-select-option *ngFor="let option of options" [value]="option.value">
+      {{ option.label }}
+    </ion-select-option>
+  </ion-select>
+  
+  <ion-note *ngIf="error" color="danger" slot="error">
+    {{ error }}
+  </ion-note>
+</ion-item>

@@ -1,0 +1,65 @@
+.transaction-details {
+  margin: 1rem 0;
+  
+  .transaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .transaction-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+      
+      .transaction-text {
+        h3 {
+          margin: 0;
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: var(--ion-color-dark);
+        }
+        
+        p {
+          margin: 0.25rem 0 0 0;
+          font-size: 0.9rem;
+          color: var(--ion-color-medium);
+        }
+      }
+    }
+    
+    .transaction-amount {
+      text-align: right;
+    }
+  }
+  
+  .detail-item {
+    margin-bottom: 1rem;
+    
+    .detail-label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--ion-color-medium);
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+    }
+    
+    .detail-value {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--ion-color-dark);
+    }
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--ion-color-light);
+    
+    ion-button {
+      flex: 1;
+    }
+  }
+}

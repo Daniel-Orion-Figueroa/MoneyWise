@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-empty-state',
@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./empty-state.component.scss'],
   standalone: false
 })
-export class EmptyStateComponent  implements OnInit {
+export class EmptyStateComponent {
+
+  @Input() mensaje: string = '';
+  @Input() icono: string = 'folder-outline';
+  @Input() accion: string = '';
+  @Output() onAccionClick = new EventEmitter<void>();
 
   constructor() { }
 
-  ngOnInit() {}
+  onActionClick() {
+    this.onAccionClick.emit();
+  }
 
 }

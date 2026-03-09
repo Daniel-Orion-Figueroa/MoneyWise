@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-amount-display',
@@ -6,10 +6,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./amount-display.component.scss'],
   standalone: false
 })
-export class AmountDisplayComponent  implements OnInit {
+export class AmountDisplayComponent {
+
+  @Input() monto!: number;
+  @Input() tipo: 'income' | 'expense' | 'neutral' = 'neutral';
+  @Input() tamaño: 'small' | 'medium' | 'large' = 'medium';
 
   constructor() { }
 
-  ngOnInit() {}
+  getAmountClass(): string {
+    switch (this.tipo) {
+      case 'income': return 'amount-income';
+      case 'expense': return 'amount-expense';
+      default: return 'amount-neutral';
+    }
+  }
+
+  getAmountPrefix(): string {
+    switch (this.tipo) {
+      case 'income': return '+';
+      case 'expense': return '-';
+      default: return '';
+    }
+  }
+
+  getSizeClass(): string {
+    return `amount-${this.tamaño}`;
+  }
 
 }

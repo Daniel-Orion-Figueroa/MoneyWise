@@ -1,3 +1,34 @@
-<p>
-  filter-bar works!
-</p>
+<ion-toolbar>
+  <ion-segment (ionChange)="onTypeChange($event)" [value]="tipoSeleccionado">
+    <ion-segment-button value="all">
+      <ion-label>Todos</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="income">
+      <ion-label>Ingresos</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="expense">
+      <ion-label>Gastos</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+
+<div class="filter-controls">
+  <ion-searchbar 
+    placeholder="Buscar transacciones..."
+    [value]="buscarTexto"
+    (ionInput)="onSearchChange($event)"
+    animated="true">
+  </ion-searchbar>
+  
+  <ion-select 
+    placeholder="Categoría"
+    [value]="categoriaSeleccionada"
+    (ionChange)="onCategoryChange($event)">
+    <ion-select-option value="all">Todas las categorías</ion-select-option>
+    <ion-select-option 
+      *ngFor="let category of categories" 
+      [value]="category.id">
+      {{ category.name }}
+    </ion-select-option>
+  </ion-select>
+</div>
