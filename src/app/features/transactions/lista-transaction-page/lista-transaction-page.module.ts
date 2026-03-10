@@ -17,6 +17,6 @@ import { ListaTransactionPage } from './lista-transaction-page.page';
     SharedModule,
     ListaTransactionPageRoutingModule
   ],
-  declarations: [ListaTransactionPage]
+  declarations: []
 })
 export class ListaTransactionPageModule {}

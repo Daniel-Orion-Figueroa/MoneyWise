@@ -15,6 +15,6 @@ import { DetailsTransactionPage } from './details-transaction-page.page';
     IonicModule,
     DetailsTransactionPageRoutingModule
   ],
-  declarations: [DetailsTransactionPage]
+  declarations: []
 })
 export class DetailsTransactionPageModule {}
